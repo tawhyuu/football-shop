@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SoccaShop</title>
+    </head>
+    <body>
+        <header>
+            <h1>Selamat Datang di SoccaShop</h1>
+            <p>Toko Sports Terlengkap</p>
+        </header>
+
+        <main>
+            <h3>{{ name }}</h3>
+            <img src="https://5.imimg.com/data5/SELLER/Default/2024/3/404714376/NM/AG/BO/14081053/football-uniforms.jpg" alt="Jersey" width="200" height="200">
+            <p><strong>Kategori:</strong> {{ category }}</p>
+            <p><strong>Harga:</strong> Rp {{ price }}</p>
+            <p><strong>Deskripsi:</strong> {{ description }}</p>
+            {% if is_featured %}
+                <p><strong>Status:</strong> Tersedia</p>
+            {% else %}
+                <p><strong>Status:</strong> Habis</p>
+            {% endif %}
+        </main>
+
+    </body>
+
+</html>
