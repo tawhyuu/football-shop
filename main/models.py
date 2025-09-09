@@ -17,5 +17,10 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False, verbose_name="Produk Unggulan")
     category = models.CharField(max_length=20, verbose_name="Kategori Produk")
 
+    class Meta:
+        verbose_name = "Produk"
+        verbose_name_plural = "Produk"
+        ordering = ['-created_at']
+        
     def __str__(self):
         return self.name
