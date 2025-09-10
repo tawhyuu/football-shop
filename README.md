@@ -112,22 +112,22 @@ Nama Aplikasi: SoccaShop
    1. Browser mengirim request ke URL tertentu
    2. urls.py memetakan URL ke view function yang sesuai
 
-   # Django mencari pattern URL yang cocok dari atas ke bawah
+   - Django mencari pattern URL yang cocok dari atas ke bawah
 
-   # URL cocok dengan path('', include('main.urls'))
+   - URL cocok dengan path('', include('main.urls'))
 
-   # Django lanjut cek di main/urls.py
+   - Django lanjut cek di main/urls.py
 
-   # Django menemukan path('', views.show_main, name='show_main')
+   - Django menemukan path('', views.show_main, name='show_main')
 
-   # Django memanggil function show_main di main/views
+   - Django memanggil function show_main di main/views
 
    3. views.py memproses request dan query data dari models jika diperlukan
    4. models.py berinteraksi dengan database untuk mengambil/menyimpan data
    5. views.py menggabungkan data dengan template HTML
    6. Template HTML dirender dan dikirim kembali sebagai response ke browser
 
-   # Kaitan antar komponen:
+   ### Kaitan antar komponen:
 
    - urls.py - Sebagai router yang menentukan view mana yang akan menangani request
    - views.py - Sebagai controller yang mengatur logic dan menghubungkan model dengan template
