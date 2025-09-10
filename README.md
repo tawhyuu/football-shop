@@ -6,7 +6,7 @@ Nama Aplikasi: SoccaShop
    1. Buka terminal pada direktori yang akan dijadikan tempat untuk pengembangan project
    2. Buat virtual environment dengan:
       - python -m venv env
-      # Kenapa pakai venv? untuk menghindari conflict. seperti contoh satu package memiliki 2 project
+        Kenapa pakai venv? untuk menghindari conflict. seperti contoh satu package memiliki 2 project
    3. Aktifkan venv dengan:
       - env\Scripts\activate
    4. Membuat file requirements.txt untuk kumpulan package yang akan di download diantaranya:
@@ -26,7 +26,7 @@ Nama Aplikasi: SoccaShop
 
   1. Buat App dengan nama main, setelah berhasil membuat project baru dan melakukan konfigurasi
      - python manage.py startapp main .
-     # Aplikasi main akan menjadi aplikasi utama yang menangani homepage
+       Aplikasi main akan menjadi aplikasi utama yang menangani homepage
 
 - Melakukan routing pada proyek agar dapat menjalankan main.
 
@@ -47,8 +47,6 @@ Nama Aplikasi: SoccaShop
   1.  Pergi ke models.py pada main dan buat class Product yang menerima parameter models.Model:
       from django.db import models
       import uuid
-
-      # Create your models here.
 
       class Product(models.Model):
       CATEGORY_CHOICES = [
@@ -76,7 +74,7 @@ Nama Aplikasi: SoccaShop
 
   2.  Buat dan Jalankan Migrasi dengan python manage.py makemigrations, kemudian python manage.py migrate
 
-  # Migrasi ini berfungsi untuk mengaplikasikan perubahan model dalam berkas migrasi ke basis data
+  Migrasi ini berfungsi untuk mengaplikasikan perubahan model dalam berkas migrasi ke basis data
 
 - Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML yang menampilkan halaman utama
 
