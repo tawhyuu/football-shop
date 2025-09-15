@@ -15,12 +15,12 @@ class Product(models.Model):
     description = models.TextField(verbose_name="Deskripsi Produk")
     thumbnail = models.URLField(verbose_name="URL Thumbnail Produk")
     is_featured = models.BooleanField(default=False, verbose_name="Produk Unggulan")
-    category = models.CharField(max_length=20, verbose_name="Kategori Produk")
+    is_available = models.BooleanField(default=True, verbose_name="Ketersediaan Produk")
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='jersey', verbose_name="Kategori Produk")
 
     class Meta:
         verbose_name = "Produk"
         verbose_name_plural = "Produk"
-        ordering = ['-created_at']
         
     def __str__(self):
         return self.name

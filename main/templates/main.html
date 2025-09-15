@@ -1,29 +1,53 @@
-<!DOCTYPE html>
-<html lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SoccaShop</title>
-    </head>
-    <body>
-        <header>
-            <h1>Selamat Datang di SoccaShop</h1>
-            <p>Toko Sports Terlengkap</p>
-        </header>
+{% extends 'base.html' %}
+{% block content %}
+    <header>
+        <h1>Selamat Datang di SoccaShop</h1>
+        <p>Toko Sports Terlengkap</p>
+    </header>
 
-        <main>
-            <h3>{{ name }}</h3>
-            <img src="https://5.imimg.com/data5/SELLER/Default/2024/3/404714376/NM/AG/BO/14081053/football-uniforms.jpg" alt="Jersey" width="200" height="200">
-            <p><strong>Kategori:</strong> {{ category }}</p>
-            <p><strong>Harga:</strong> Rp {{ price }}</p>
-            <p><strong>Deskripsi:</strong> {{ description }}</p>
-            {% if is_featured %}
-                <p><strong>Status:</strong> Tersedia</p>
-            {% else %}
-                <p><strong>Status:</strong> Habis</p>
-            {% endif %}
-        </main>
+    <main>
+        <h5>Owner: Tangguh Ambha Wahyuga</h5>
+        <h5>NPM: 2406361536</h5>
+        <h5>Class: PBP E</h5>
 
-    </body>
+        <a href="{% url 'main:create_product' %}">
+            <button>+ Add Product</button>
+        </a>
 
-</html>
+        {% if not product_list %}
+            <p>Belum ada produk terdaftar.</p>
+        {% else %}
+            {% for product in product_list %}
+                <div>
+                    <h3>
+                        <a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a>
+                    </h3>
+                    <p>
+                        <b>{{ product.get_category_display }}</b>
+                        {% if product.is_featured %}
+                        | <b>Featured</b>
+                        {% endif %}
+                        {% if product.is_available %}
+                            | <b>In Stock</b>
+                        {% else %}
+                            | <b>Out of Stock</b>
+                        {% endif %}
+                        | Rp {{ product.price }}
+                    </p>
+
+                    {% if product.thumbnail %}
+                        <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
+                        <br />
+                    {% endif %}
+                    <p>{{ product.description|truncatewords:25 }}...</p>
+                    <p>
+                        <a href="{% url 'main:show_product' product.id %}">
+                            <button>View Details</button>
+                        </a>
+                    </p>
+                </div>
+                <hr>
+            {% endfor %}
+        {% endif %}
+    </main>
+{% endblock content %}
