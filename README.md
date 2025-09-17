@@ -1,6 +1,10 @@
 Link aplikasi PWS: https://tangguh-ambha-footballshop.pbp.cs.ui.ac.id/
 Nama Aplikasi: SoccaShop
 
+## Dokumentasi Tugas
+
+- [Tugas 2](../../wiki/Tugas-2-PBP-2025-2026)
+
 ## Tugas 3 PBP
 
 ### 1. Mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
