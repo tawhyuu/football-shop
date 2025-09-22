@@ -6,12 +6,25 @@
     </header>
 
     <main>
-        <h5>Owner: Tangguh Ambha Wahyuga</h5>
+        <h5>Owner: {{ name }}</h5>
         <h5>NPM: 2406361536</h5>
         <h5>Class: PBP E</h5>
 
         <a href="{% url 'main:create_product' %}">
             <button>+ Add Product</button>
+        </a>
+
+        <a href="{% url 'main:logout' %}">
+            <button>Logout</button>
+        </a>
+        <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+        <hr>
+        <a href="?filter=all">
+            <button type="button">All Product</button>
+        </a>
+        <a href="?filter=my">
+            <button type="button">My Product</button>
         </a>
 
         {% if not product_list %}
