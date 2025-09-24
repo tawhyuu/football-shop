@@ -4,174 +4,99 @@ Nama Aplikasi: SoccaShop
 ## Dokumentasi Tugas
 
 - [Tugas 2](../../wiki/Tugas-2-PBP-2025-2026)
+- [Tugas 3](../../wiki/TUgas-3-PBP-2025-2026)
 
-## Tugas 3 PBP
+## Tugas 4
 
-### 1. Mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+### Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya
 
-Data delivery diperlukan agar platform bisa **bertukar data antar komponen atau layanan**. Dengan adanya data delivery, aplikasi front-end bisa menampilkan informasi dari back-end, dan aplikasi lain bisa mengkonsumsi data dari API. Tanpa data delivery, sistem akan terisolasi dan tidak bisa berkomunikasi dengan sistem lain.
+Django AuthenticationForm adalah Form login bawaan Django yang menyediakan interface standar untuk pengguna login. Apa kelebihannya? efisien baris dalam coding, karena sudah dibuatkan oleh Django beserta validasi inputnya tidak perlu ngoding dari awal, tidak perlu memikirkan apakah password yang dimasukkan tersimpan aman. Kekurangannya? Formulir ini memberikan formulir standar beruba username dan password sehingga perlu dilakukan modifikasi jika perlu formulir kustom.
 
-### 2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+### Apa perbedaan antara autentikasi dan otorisasi? Bagaimana DJango mengimplementasikan kedua konsep tersebut?
 
-- **JSON** lebih baik untuk pertukaran data modern karena:
-  - Lebih **ringkas** dan lebih readable.
-  - Didukung langsung oleh **JavaScript** dan banyak bahasa pemrograman lain.
-  - Parsing lebih cepat.
-- Tetapi **XML** masih digunakan dalam beberapa sistem lama karena memiliki struktur **tag** yang kuat dan dukungan untuk **metadata** (attributes, namespace).
-- JSON lebih populer karena lebih **sederhana, efisien, dan langsung terintegrasi** dengan ekosistem web.
+Autentikasi adalah proses memverifikasi siapa yang sedang mengakses simplenya adalah login. Sedangkan Authorization adalah proses memverifikasi akses yang dimiliki pengakses, seperti ada pembagian akses yang hanya dimiliki oleh pengguna tertentu. Dalam pengaplikasiannya Django memiliki decorator "login_required" dan "permission_required" yang menandakan bahwa function tersebut dapat diakses dengan authentication dan authorization
 
-### 3. Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+### Apa saja kelebihan dan kekurangan session dan cookies dalam konsteks menyimpan state di aplikasi web?
 
-- Fungsi `is_valid()` digunakan untuk **validasi input form**.
-- Django akan memeriksa apakah semua field diisi sesuai aturan (misalnya: tipe data benar, panjang karakter sesuai).
-- Jika valid → mengembalikan `True`, dan data bisa diakses melalui `cleaned_data`.
-- Jika tidak valid → mengembalikan `False`, serta menghasilkan pesan error.
+Kelebihan Session:
 
-Tanpa `is_valid()`, aplikasi bisa menerima input yang salah atau berbahaya.
+1. Lebih aman, session bisa diibaratkan seperti "loker" yang ketika kita simpan data kita hanya mendapat nomor loker (session ID).
+2. Bisa menyimpan data yang cukup banyak karena server session memiliki banyak "loker"
 
-### 4. Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+Kekurangan Session:
 
-- `csrf_token` digunakan untuk mencegah **Cross-Site Request Forgery (CSRF)**.
-- Jika tidak ada token, form bisa di-submit oleh pihak ketiga (penyerang) tanpa sepengetahuan pengguna.
-- Penyerang bisa memanfaatkan ini untuk:
-  - Mengirim permintaan palsu dengan kredensial pengguna.
-  - Melakukan transaksi atau perubahan data yang tidak sah.
+1. Beban server yang lebih berat, karena semua "loker" ada di server, kalau ada ribuan pengguna menyimpan data di "loker" maka server bisa kecapean.
+2. Ketika log out, data-data akan langsung hilang tidak bisa di akses lagi
 
-### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
+Kelebihan Cookies:
 
-#### 1. Membuat 4 Fungsi Views Baru untuk JSON dan XML (by ID dan all)
+1. Data yang disimpan di cookies mudah untuk diakses, seperti saat login line ada centang "Remember me"
+2. Bisa disimpan dalam jangka waktu yang lama
+3. Tersimpan di browser, sehingga tidak membebani server
 
-1. Buka `views.py` pada app utama.
-2. Import `HttpResponse` dan `serializers`:
+Kekurangan Cookies:
 
-   ```python
-   from django.http import HttpResponse
-   from django.core import serializers
-   from .models import Product
-   ```
+1. Cookies memiliki kapasitas kecil untuk menyimpan data, tidak bisa lebih dari 4KB
+2. Data yang disimpan di cookies lebih mudah diakses sehingga kurang aman
 
-3. Tambahkan fungsi untuk menampilkan semua data dalam format **XML**:
+### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
 
-   ```python
-   def show_xml(request):
-       data = Product.objects.all()
-       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-   ```
+By default cookies tidak aman. Ada resiko Cookies bocor saat lintas domain, karena Cookies dikirim otomatis oleh browser setiap kali request ke domain itu. Kalau ada web yang bisa mengarahkan user buat request ke server, cookies tetap ikut terkirim, ini resikonya CSRF. Masih banyak resiko lainnya. Tetapi django memiliki CSRF protection built in yang berfungsi melindungi form "POST", ketika ada request palsu akan ditolak
 
-4. Tambahkan fungsi untuk menampilkan semua data dalam format **JSON**:
+### Jelaskan bagaimana car akamu mengimplementasikan checklist diatas secara step-by-step
 
-   ```python
-   def show_json(request):
-       data = Product.objects.all()
-       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-   ```
+#### 1. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya.
 
-5. Tambahkan fungsi untuk menampilkan data **berdasarkan ID dalam format XML**:
+1. Membuat fungsi login_user, register, dan logout_user di views.py. nama funcionnya kalau bisa jangan login dan logout karena nanti akan memanggil fungsi itu sendiri dan bukan fungsi bawaan django.
+2. Membuat template login dan register dan menambahkan routing untuk function ini
+   2.1 login_user akan merender AuthenticationForm ke login.html
+   2.2 register akan merender UserCreationForm ke register.html
+3. Setelah tambahkan decorator "@login_required" pada function yang menghandle homepage, untuk kasus ini adalah function show_main. Tambahkan parameter login_url untuk kasus ini adalah login/
+4. runserver dan coba akses homepage akan menampilkan page login (/login/) karena belum melakukan login.
 
-   ```python
-   def show_xml_by_id(request, id):
-       data = Product.objects.filter(pk=id)
-       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-   ```
+##### 2. Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal.
 
-6. Tambahkan fungsi untuk menampilkan data **berdasarkan ID dalam format JSON**:
+1. Lakukan register dan login untuk setiap akun
+2. Tambahkan 3 Produk untuk masing - masing akun
 
-   ```python
-   def show_json_by_id(request, id):
-       data = Product.objects.filter(pk=id)
-       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-   ```
+#### 3. Menghubungkan model Product dengan User.
 
----
+1. Tambahakan kode berikut pada model untuk mengaitkan product dengan user
 
-#### 2. Membuat Routing URL untuk Setiap Views
+```python
+user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Pemilik Produk", null=True)
+```
 
-1. Buka `urls.py` pada app.
-2. Tambahkan import views dan path URL:
+2. Ketika on_delete=models.CASCADE maka model lama tidak akan dihapus.
+3. Ubah detail_product.html menambahkan pemilik produk tersebut dengan
 
-   ```python
-   from django.urls import path
-   from .views import show_xml, show_json, show_xml_by_id, show_json_by_id
+```python
+{% if product.user %}
+<p>Author: {{ product.user.username }}</p>
+{% else %}
+<p>Author: Anonymous</p>
+{% endif %}
+```
 
-   urlpatterns = [
-      ...
-       path('xml/', show_xml, name='show_xml'),
-       path('json/', show_json, name='show_json'),
-       path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
-       path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
-       ...
-   ]
-   ```
+4. Nantinya 3 product yang ditambahkan untuk setiap akun akan menampilkan anonymouse karena product.user.username mengembalikan NONE
 
----
+#### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi
 
-#### 3. Membuat Halaman Utama untuk Daftar Objek
+1. Mengedit main.html dengan mengganti
 
-1. Mengedit `main.html` yang sebelumnya hanya untuk satu objek sekarang untuk semua produk.
-2. Gunakan loop untuk menampilkan produk, dengan tombol **Add** dan **Detail**:
+```python
+owner : <h5>Owner: {{ name }}</h5>
+```
 
-   ```html
-   {% for product in products %}
-   <h3>{{ product.name }}</h3>
-   <p>{{ product.price }}</p>
-   <a href="{% url 'add_product' %}">Add</a>
-   <a href="{% url 'detail_product' product.id %}">Detail</a>
-   {% endfor %}
-   ```
+2. mengedit show_main di views.py untuk mengakses nama user yang sedang login
 
----
+```python
+context = {
+        'name': request.user.username,
+        'last_login': request.COOKIES.get('last_login'),
+        'product_list': product_list,
+    }
+```
 
-#### 4. Membuat Halaman Form untuk Menambahkan Objek
-
-1. Buat file `forms.py` dan tambahkan `ModelForm`:
-
-   ```python
-   from django import forms
-   from .models import Product
-
-   class ProductForm(forms.ModelForm):
-       class Meta:
-           model = Product
-           fields = ['name', 'price', 'description', 'thumbnail', 'is_featured', 'is_available', 'category']
-   ```
-
-2. Buat template `create_product` di direktori templates untuk menampilkan form penambahan produk
-3. Tambahkan fungsi `create_product` di `views.py` untuk menampilkan dan memproses form.
-   Jika form valid, data disimpan ke database.
-4. Membuat routing url di urlpatterns
-
----
-
-#### 5. Membuat Halaman Detail untuk Setiap Objek
-
-1. Tambahkan fungsi `show_product` di `views.py` dengan parameter `id` untuk mengambil satu produk.
-2. Buat template `product_detail.html` untuk menampilkan detail produk.
-3. Membuat routing url di urlpatterns
-
----
-
-#### 6. Mengakses URL dengan Postman
-
-1. Buka Postman.
-2. Akses URL berikut:
-
-   - `http://localhost:8000/json/`
-   - `http://localhost:8000/xml/`
-   - `http://localhost:8000/json/<id>`
-   - `http://localhost:8000/xml/<id>`
-
-3. Ambil screenshot hasil respon.
-4. Tambahkan screenshot ke dokumentasi README/Wiki.
-
----
-
-#### 6. Apakah ada feedback untuk asdos di tutorial 2?
-
-Sangat aman kak untuk tutorial 2 ini. Semua penjelasannya sudah jelas dan mudah dipahami
-
-### 6. Bukti Screenshoot Postman
-
-![Screenshot](https://drive.google.com/uc?export=view&id=1JY0mt8bOKtiulbmig86ig470A6QPlE2D)
-![Screenshot](https://drive.google.com/uc?export=view&id=14t7txIn_8qsMWuVrTxn7nyTKIp3dUoou)
-![Screenshot](https://drive.google.com/uc?export=view&id=1tq2KTHTOjPLpwlXVti_hlRrKDkTXmFj6)
-![Screenshot](https://drive.google.com/uc?export=view&id=1J8HrYr9RCiFaNDs2fZY1wJqdu7nOPSp0)
+3. Menambahkan set_cookies untuk last login pada fungsi login_user pada views.py
+   kemudian menambahkan delete_cookies pada logout.
