@@ -61,6 +61,6 @@ Sementara itu, grid layout lebih powerful untuk membuat desain yang kompleks, se
    1.2 Buat beberapa component seperti Button, Button Hover, Card Product, Card Product Hover, dll
    1.3 Membuat Logo di Canva dan import ke Figma
    1.4 Rangkai menjadi home page yang indah
-   [Desain Figma](./assets/img/Desain%20Figma.png)
+   ![Desain Figma](./assets/img/Desain%20Figma.png)
 2. Setelah sudah jadi export code ke dalam bentuk CSS + HTML dengan plugins yang sudah disediakan Figma
 3. Ubah menjadi tailwind CSS dengan styling inline
