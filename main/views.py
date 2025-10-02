@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from main.forms import ProductForm
+from main.forms import ProductForm, CarForm
 from main.models import Product, Employee
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
@@ -37,6 +37,21 @@ def create_product(request):
     context = {'form': form,}
     return render(request, "create_product.html", context)
 
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return redirect('main:show_main')
+    
+    context = {'form': form,}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse("main:show_main"))
+
 def add_employee(request):
     employee = Employee.objects.create(name = 'Daniel', age = 20, persona = 'baik banget buat challenge')
     context = {
@@ -45,6 +60,15 @@ def add_employee(request):
         'persona' : employee.persona,
     }
     return render(request, "employee.html", context)
+
+def create_car(request):
+    form = CarForm(request.POST or None)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return redirect('main:show_main')
+    
+    context = {'form': form,}
+    return render(request, "create_car.html", context)
 
 @login_required(login_url='login/')
 def show_product(request, id):
@@ -66,7 +90,7 @@ def show_json(request):
 
 def show_xml_by_id(request, product_id):
     try:
-        product = Product.objects.get(pk=product_id)
+        product = Product.objects.filter(pk=product_id)
         xml_data = serializers.serialize('xml', [product])
         return HttpResponse(xml_data, content_type='application/xml')
     except Product.DoesNotExist:

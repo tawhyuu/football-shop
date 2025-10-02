@@ -1,0 +1,130 @@
+<!-- Navbar dengan Tailwind CSS -->
+{% load static %}
+<nav class="bg-[#EAFBFC] relative">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+            <img 
+            src="{% static 'img/logo.png' %}" 
+            alt="Logo" 
+            class="w-[193px] h-[40px] object-cover"
+            />
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-10">
+            <a 
+            href="{% url 'main:show_main' %}" 
+            class="text-[#1f4590] text-base font-normal font-['Raleway'] hover:text-[#fdd956] transition-colors duration-200 focus:outline focus:outline-2 focus:outline-[#1f4590] focus:outline-offset-2"
+            >
+            Home
+            </a>
+            <a 
+            href="{% url 'main:create_product' %}" 
+            class="text-[#1f4590] text-base font-normal font-['Raleway'] hover:text-[#fdd956] transition-colors duration-200 focus:outline focus:outline-2 focus:outline-[#1f4590] focus:outline-offset-2"
+            >
+            Add Product
+            </a>
+        </div>
+
+        <!-- Desktop User Profile -->
+        <div class="hidden md:block relative">
+            <input type="checkbox" id="user-toggle" class="hidden peer" />
+            <label for="user-toggle" class="cursor-pointer">
+            <div class="w-10 h-10 bg-gradient-to-br from-[#1f4590] to-[#5b0a89] rounded-full flex items-center justify-center text-white font-semibold text-lg hover:shadow-lg transition-shadow">
+                {{ user.username|slice:":1"|upper }}
+            </div>
+            </label>
+            
+            <!-- Dropdown -->
+            <div class="hidden peer-checked:block absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+            <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#1f4590] to-[#5b0a89] rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    {{ user.username|slice:":1"|upper }}
+                </div>
+                <div>
+                    <p class="text-gray-800 font-semibold text-sm">{{ user.username }}</p>
+                    <p class="text-gray-500 text-xs">2406361536 - PBP E</p>
+                </div>
+                </div>
+            </div>
+            <div class="p-2">
+                <a href="{% url 'main:logout' %}" class="block">
+                <button class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                    Log Out
+                </button>
+                </a>
+            </div>
+            </div>
+        </div>
+
+        <!-- Mobile: User Profile & Burger Menu -->
+        <div class="md:hidden flex items-center gap-3">
+            <!-- Mobile User Profile -->
+            <div class="relative">
+            <input type="checkbox" id="user-toggle-mobile" class="hidden peer" />
+            <label for="user-toggle-mobile" class="cursor-pointer">
+                <div class="w-10 h-10 bg-gradient-to-br from-[#1f4590] to-[#5b0a89] rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                {{ user.username|slice:":1"|upper }}
+                </div>
+            </label>
+            
+            <!-- Mobile User Dropdown -->
+            <div class="hidden peer-checked:block absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-[#1f4590] to-[#5b0a89] rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    {{ user.username|slice:":1"|upper }}
+                    </div>
+                    <div>
+                    <p class="text-gray-800 font-semibold text-sm">{{ user.username }}</p>
+                    <p class="text-gray-500 text-xs">2406361536 - PBP E</p>
+                    </div>
+                </div>
+                </div>
+                <div class="p-2">
+                <a href="{% url 'main:logout' %}" class="block">
+                    <button class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                    Log Out
+                    </button>
+                </a>
+                </div>
+            </div>
+            </div>
+
+            <!-- Burger Menu -->
+            <div class="relative">
+            <input type="checkbox" id="menu-toggle" class="hidden peer" />
+            <label for="menu-toggle" class="cursor-pointer block">
+                <div class="space-y-1.5 peer-checked:[&>span:nth-child(1)]:rotate-45 peer-checked:[&>span:nth-child(1)]:translate-y-2 peer-checked:[&>span:nth-child(2)]:opacity-0 peer-checked:[&>span:nth-child(3)]:-rotate-45 peer-checked:[&>span:nth-child(3)]:-translate-y-2">
+                <span class="block w-8 h-0.5 bg-[#1f4590] transition-all duration-300"></span>
+                <span class="block w-8 h-0.5 bg-[#1f4590] transition-all duration-300"></span>
+                <span class="block w-8 h-0.5 bg-[#1f4590] transition-all duration-300"></span>
+                </div>
+            </label>
+            
+            <!-- Mobile Menu Dropdown -->
+            <div class="hidden peer-checked:block absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-40">
+                <div class="py-2">
+                <a 
+                    href="{% url 'main:show_main' %}" 
+                    class="block px-4 py-2 text-[#1f4590] font-['Raleway'] hover:bg-[#1f4590] hover:text-white transition-colors duration-200"
+                >
+                    Home
+                </a>
+                <a 
+                    href="{% url 'main:create_product' %}" 
+                    class="block px-4 py-2 text-[#1f4590] font-['Raleway'] hover:bg-[#1f4590] hover:text-white transition-colors duration-200"
+                >
+                    Add Product
+                </a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</nav>

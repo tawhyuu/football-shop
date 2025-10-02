@@ -1,0 +1,93 @@
+.form-style form input, form textarea, form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #bcbcbc;
+    border-radius: 0.375rem;
+}
+.form-style form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: #1f4590;
+    box-shadow: 0 0 0 3px #1f4590;
+}
+
+.form-style input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 2px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-style input[type="checkbox"]:checked {
+    background-color: #1f4590;
+    border-color: #1f4590;
+}
+
+.form-style input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+.form-style input[type="checkbox"]:focus {
+    outline: none;
+    border-color: #1f4590;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+:root {
+        --background-color: #d0fcff;
+        --main-color: #1f4590;
+        --second-color: #fdd956;
+        --white-color: #f4f4f4;
+        --third-color: #5b0a89;
+        --fourth-color: #ff9a42;
+    }
+    
+body {
+    background: linear-gradient(135deg, #d0fcff 0%, #a8e6f0 100%);
+    min-height: 100vh;
+}
+
+
+.product-card:hover .product-info {
+    transform: translateY(10px);
+}
+
+.product-card .product-info {
+    transform: translateY(100px)
+}
+
+/* Hide checkbox */
+#menu-toggle:checked ~ #mobile-menu {
+display: block;
+}
+
+/* Hamburger animation */
+#menu-toggle:checked ~ label #hamburger span:nth-child(1) {
+transform: rotate(45deg) translate(5px, 5px);
+}
+
+#menu-toggle:checked ~ label #hamburger span:nth-child(2) {
+opacity: 0;
+}
+
+#menu-toggle:checked ~ label #hamburger span:nth-child(3) {
+transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* User dropdown toggle */
+#user-toggle:checked ~ #user-dropdown {
+display: block;
+}

@@ -1,66 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <header>
-        <h1>Selamat Datang di SoccaShop</h1>
-        <b><b>Toko Sports Terlengkap</b></p>
+{% include 'navbar.html' %}
+
+    <!-- Header -->
+    <header class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#1f4590] to-[#5b0a89] opacity-95"></div>
+    <div class="relative z-10 text-center py-16 px-8">
+        <h1 class="text-5xl font-bold text-[#f4f4f4] mb-3 drop-shadow-lg">
+        Selamat Datang di SoccaShop
+        </h1>
+        <p class="text-xl font-semibold text-[#fdd956]">Toko Sports Terlengkap</p>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-transparent to-[#1f4590]/20"></div>
     </header>
 
-    <main>
-        <h5>Owner: {{ name }}</h5>
-        <h5>NPM: 2406361536</h5>
-        <h5>Class: PBP E</h5>
+    <main class="max-w-7xl mx-auto px-6 py-8">
 
-        <a href="{% url 'main:create_product' %}">
-            <button>+ Add Product</button>
+    <!-- Filter Section -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 mb-8">
+        <div class="flex justify-center gap-4 flex-wrap">
+        <a href="?filter=all" 
+            class="inline-block bg-[#fdd956] text-[#1f4590] px-8 py-2.5 rounded-full font-semibold hover:bg-[#1f4590] hover:text-[#fdd956] transition-all duration-300 hover:shadow-md">
+            All Product
         </a>
-
-        <a href="{% url 'main:logout' %}">
-            <button>Logout</button>
+        <a href="?filter=my" 
+            class="inline-block bg-[#fdd956] text-[#1f4590] px-8 py-2.5 rounded-full font-semibold hover:bg-[#1f4590] hover:text-[#fdd956] transition-all duration-300 hover:shadow-md">
+            My Product
         </a>
-        <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </div>
 
-        <hr>
-        <a href="?filter=all">
-            <button type="button">All Product</button>
-        </a>
-        <a href="?filter=my">
-            <button type="button">My Product</button>
-        </a>
-
-        {% if not product_list %}
-            <p>Belum ada produk terdaftar.</p>
-        {% else %}
-            {% for product in product_list %}
-                <div>
-                    <h3>
-                        <a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a>
-                    </h3>
-                    <p>
-                        <b>{{ product.get_category_display }}</b>
-                        {% if product.is_featured %}
-                        | <b>Featured</b>
-                        {% endif %}
-                        {% if product.is_available %}
-                            | <b>In Stock</b>
-                        {% else %}
-                            | <b>Out of Stock</b>
-                        {% endif %}
-                        | Rp {{ product.price }}
-                    </p>
-
-                    {% if product.thumbnail %}
-                        <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
-                        <br />
-                    {% endif %}
-                    <p>{{ product.description|truncatewords:25 }}...</p>
-                    <p>
-                        <a href="{% url 'main:show_product' product.id %}">
-                            <button>View Details</button>
-                        </a>
-                    </p>
-                </div>
-                <hr>
-            {% endfor %}
-        {% endif %}
+    <!-- Products Section -->
+    {% if not product_list %}
+        <div class="text-center py-16">
+        <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-12 max-w-md mx-auto">
+            <svg class="w-24 h-24 mx-auto mb-4 text-[#1f4590]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+            </svg>
+            <p class="text-xl text-[#5b0a89] font-semibold">Belum ada produk terdaftar.</p>
+        </div>
+        </div>
+    {% else %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in product_list %}
+            {% include 'card_product.html' with product=product %}
+        {% endfor %}
+        </div>
+    {% endif %}
     </main>
+
 {% endblock content %}
