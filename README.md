@@ -5,98 +5,62 @@ Nama Aplikasi: SoccaShop
 
 - [Tugas 2](../../wiki/Tugas-2-PBP-2025-2026)
 - [Tugas 3](../../wiki/TUgas-3-PBP-2025-2026)
+- [Tugas 4](../../wiki/Tugas-4-PBP-2025-2026)
 
-## Tugas 4
+## Tugas 5
 
-### Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya
+### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
 
-Django AuthenticationForm adalah Form login bawaan Django yang menyediakan interface standar untuk pengguna login. Apa kelebihannya? efisien baris dalam coding, karena sudah dibuatkan oleh Django beserta validasi inputnya tidak perlu ngoding dari awal, tidak perlu memikirkan apakah password yang dimasukkan tersimpan aman. Kekurangannya? Formulir ini memberikan formulir standar beruba username dan password sehingga perlu dilakukan modifikasi jika perlu formulir kustom.
+Urutannya:
 
-### Apa perbedaan antara autentikasi dan otorisasi? Bagaimana DJango mengimplementasikan kedua konsep tersebut?
+- Inline style (langsung di elemen HTML) paling tinggi.
+- Internal Style Sheet atau External.
+- Browser default.
 
-Autentikasi adalah proses memverifikasi siapa yang sedang mengakses simplenya adalah login. Sedangkan Authorization adalah proses memverifikasi akses yang dimiliki pengakses, seperti ada pembagian akses yang hanya dimiliki oleh pengguna tertentu. Dalam pengaplikasiannya Django memiliki decorator "login_required" dan "permission_required" yang menandakan bahwa function tersebut dapat diakses dengan authentication dan authorization
+### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
 
-### Apa saja kelebihan dan kekurangan session dan cookies dalam konsteks menyimpan state di aplikasi web?
+Responsive design bikin tampilan web tetap nyaman di berbagai ukuran layar (HP, tablet, laptop). Kalau nggak responsive, web bisa kelihatan berantakan di HP—tombol kepotong, teks susah dibaca.
 
-Kelebihan Session:
+Contoh aplikasi yang sudah responsive: Instagram, Tokopedia (tampilan tetap rapi di HP). Contoh yang belum: Website jadul yang kalau dibuka di HP harus di-zoom dan geser-geser.
 
-1. Lebih aman, session bisa diibaratkan seperti "loker" yang ketika kita simpan data kita hanya mendapat nomor loker (session ID).
-2. Bisa menyimpan data yang cukup banyak karena server session memiliki banyak "loker"
+Kenapa penting? Karena sekarang banyak orang akses web lewat HP, jadi harus ramah di semua device.
 
-Kekurangan Session:
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal ini
 
-1. Beban server yang lebih berat, karena semua "loker" ada di server, kalau ada ribuan pengguna menyimpan data di "loker" maka server bisa kecapean.
-2. Ketika log out, data-data akan langsung hilang tidak bisa di akses lagi
+- Margin: Jarak di luar border elemen, buat ngatur spasi antar elemen.
+- Border: Garis di sekeliling elemen.
+- Padding: Jarak antara isi elemen dan bordernya.
+  Intinya Margin yang mengatur jarak antara border ke elemen lainnya, sedangkan padding adalah jarak isi content terhadap border
 
-Kelebihan Cookies:
+Untuk contoh implementasinya pada file css:
+.card {
+margin: 20px; /_ jarak antar card _/
+border: 2px solid #333; /_ garis di sekeliling card _/
+padding: 10px; /_ jarak isi card ke border _/
+}
 
-1. Data yang disimpan di cookies mudah untuk diakses, seperti saat login line ada centang "Remember me"
-2. Bisa disimpan dalam jangka waktu yang lama
-3. Tersimpan di browser, sehingga tidak membebani server
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
 
-Kekurangan Cookies:
+Flexbox (Flexible Box) cocok digunakan saat ingin membuat barisan elemen yang fleksibel, misalnya deretan kartu produk yang otomatis rapi walaupun jumlahnya berubah-ubah. Dengan flexbox, kita bisa dengan mudah mengatur arah (horizontal/vertikal), jarak antar elemen, dan bagaimana elemen-elemen tersebut membesar atau mengecil mengikuti ukuran layar.
 
-1. Cookies memiliki kapasitas kecil untuk menyimpan data, tidak bisa lebih dari 4KB
-2. Data yang disimpan di cookies lebih mudah diakses sehingga kurang aman
+Sementara itu, grid layout lebih powerful untuk membuat desain yang kompleks, seperti membagi halaman menjadi beberapa kolom dan baris sekaligus. Grid memungkinkan kita menentukan area tertentu untuk elemen, sehingga cocok untuk layout seperti dashboard atau galeri foto yang butuh struktur lebih teratur. Intinya, flexbox lebih pas untuk tata letak satu dimensi (baris atau kolom), sedangkan grid layout untuk dua dimensi (baris dan kolom sekaligus). Keduanya sangat membantu agar tampilan web tetap rapi dan responsif di berbagai ukuran layar.
 
-### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+### Jelaskan cara kamu mengimplementasikan checklist di atas secara step-by-step
 
-By default cookies tidak aman. Ada resiko Cookies bocor saat lintas domain, karena Cookies dikirim otomatis oleh browser setiap kali request ke domain itu. Kalau ada web yang bisa mengarahkan user buat request ke server, cookies tetap ikut terkirim, ini resikonya CSRF. Masih banyak resiko lainnya. Tetapi django memiliki CSRF protection built in yang berfungsi melindungi form "POST", ketika ada request palsu akan ditolak
+#### 1. Implementasikan fungsi untuk menghapus dan mengedit product]
 
-### Jelaskan bagaimana car akamu mengimplementasikan checklist diatas secara step-by-step
+1. Membuat 2 function baru di views.py, yaitu edit_product dan delete_product.
+2. Buat URL untuk edit dan delete
+3. Buat template untuk edit_product
+4. Pada main.html tambahkan tombol edit dan delete ketika user == product.user
 
-#### 1. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya.
+#### 2. Kustomisasi desain pada template HTML yangtelah dibuat pada tugas sebelumnya menggunakan CSS atau CSS framework
 
-1. Membuat fungsi login_user, register, dan logout_user di views.py. nama funcionnya kalau bisa jangan login dan logout karena nanti akan memanggil fungsi itu sendiri dan bukan fungsi bawaan django.
-2. Membuat template login dan register dan menambahkan routing untuk function ini
-   2.1 login_user akan merender AuthenticationForm ke login.html
-   2.2 register akan merender UserCreationForm ke register.html
-3. Setelah tambahkan decorator "@login_required" pada function yang menghandle homepage, untuk kasus ini adalah function show_main. Tambahkan parameter login_url untuk kasus ini adalah login/
-4. runserver dan coba akses homepage akan menampilkan page login (/login/) karena belum melakukan login.
-
-##### 2. Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal.
-
-1. Lakukan register dan login untuk setiap akun
-2. Tambahkan 3 Produk untuk masing - masing akun
-
-#### 3. Menghubungkan model Product dengan User.
-
-1. Tambahakan kode berikut pada model untuk mengaitkan product dengan user
-
-```python
-user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Pemilik Produk", null=True)
-```
-
-2. Ketika on_delete=models.CASCADE maka model lama tidak akan dihapus.
-3. Ubah detail_product.html menambahkan pemilik produk tersebut dengan
-
-```python
-{% if product.user %}
-<p>Author: {{ product.user.username }}</p>
-{% else %}
-<p>Author: Anonymous</p>
-{% endif %}
-```
-
-4. Nantinya 3 product yang ditambahkan untuk setiap akun akan menampilkan anonymouse karena product.user.username mengembalikan NONE
-
-#### 4. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi
-
-1. Mengedit main.html dengan mengganti
-
-```python
-owner : <h5>Owner: {{ name }}</h5>
-```
-
-2. mengedit show_main di views.py untuk mengakses nama user yang sedang login
-
-```python
-context = {
-        'name': request.user.username,
-        'last_login': request.COOKIES.get('last_login'),
-        'product_list': product_list,
-    }
-```
-
-3. Menambahkan set_cookies untuk last login pada fungsi login_user pada views.py
-   kemudian menambahkan delete_cookies pada logout.
+1. Buka Figma dan mulai mendesign WebPagenya seperti apa
+   1.1 Menentukan dulu color palet dan typograph nya
+   1.2 Buat beberapa component seperti Button, Button Hover, Card Product, Card Product Hover, dll
+   1.3 Membuat Logo di Canva dan import ke Figma
+   1.4 Rangkai menjadi home page yang indah
+   [Desain Figma](./assets/img/Desain%20Figma.png)
+2. Setelah sudah jadi export code ke dalam bentuk CSS + HTML dengan plugins yang sudah disediakan Figma
+3. Ubah menjadi tailwind CSS dengan styling inline
