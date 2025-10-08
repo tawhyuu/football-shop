@@ -20,7 +20,7 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False, verbose_name="Produk Unggulan")
     is_available = models.BooleanField(default=True, verbose_name="Ketersediaan Produk")
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='jersey', verbose_name="Kategori Produk")
-
+    
     class Meta:
         verbose_name = "Produk"
         verbose_name_plural = "Produk"

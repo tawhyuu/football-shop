@@ -16,5 +16,9 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('product/<uuid:id>/edit', views.edit_product, name="edit_product"),
-    path('product/<uuid:id>/delete', views.delete_product, name="delete_product")
+    path('product/<uuid:id>/delete', views.delete_product, name="delete_product"),
+    # AJAX endpoints
+    path('add-product-ajax/', views.add_product_ajax, name='add_product_ajax'),
+    path('edit-product-ajax/<uuid:id>/', views.edit_product_ajax, name='edit_product_ajax'),
+    path('delete-product-ajax/<uuid:id>/', views.delete_product_ajax, name='delete_product_ajax'),
 ]

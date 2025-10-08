@@ -21,12 +21,12 @@
             >
             Home
             </a>
-            <a 
-            href="{% url 'main:create_product' %}" 
+            <button 
+            onclick="showAddModal()" 
             class="text-[#1f4590] text-base font-normal font-['Raleway'] hover:text-[#fdd956] transition-colors duration-200 focus:outline focus:outline-2 focus:outline-[#1f4590] focus:outline-offset-2"
             >
             Add Product
-            </a>
+            </button>
         </div>
 
         <!-- Desktop User Profile -->
@@ -52,11 +52,9 @@
                 </div>
             </div>
             <div class="p-2">
-                <a href="{% url 'main:logout' %}" class="block">
-                <button class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                <button onclick="handleLogout()" class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
                     Log Out
                 </button>
-                </a>
             </div>
             </div>
         </div>
@@ -86,11 +84,9 @@
                 </div>
                 </div>
                 <div class="p-2">
-                <a href="{% url 'main:logout' %}" class="block">
-                    <button class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                <button onclick="handleLogout()" class="w-full bg-[#ff9a42] hover:bg-[#e6944a] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
                     Log Out
-                    </button>
-                </a>
+                </button>
                 </div>
             </div>
             </div>
@@ -117,8 +113,8 @@
                 </a>
                 <a 
                     href="{% url 'main:create_product' %}" 
-                    class="block px-4 py-2 text-[#1f4590] font-['Raleway'] hover:bg-[#1f4590] hover:text-white transition-colors duration-200"
-                >
+                    class="text-[#1f4590] text-base font-normal font-['Raleway'] hover:text-[#fdd956] transition-colors duration-200 focus:outline focus:outline-2 focus:outline-[#1f4590] focus:outline-offset-2"
+                    >
                     Add Product
                 </a>
                 </div>
@@ -128,3 +124,29 @@
         </div>
     </div>
 </nav>
+
+<script>
+async function handleLogout() {
+  try {
+    const response = await fetch("{% url 'main:logout' %}", {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    });
+    
+    if (response.ok || response.redirected) {
+      showToast('Logout Success!', 'See you next time! ⚽', 'success');
+      setTimeout(() => {
+        window.location.href = "{% url 'main:login' %}";
+      }, 1000);
+    } else {
+      showToast('Error', 'Failed to logout', 'error');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    showToast('Error', 'An error occurred during logout', 'error');
+  }
+}
+</script>
