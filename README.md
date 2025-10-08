@@ -6,61 +6,213 @@ Nama Aplikasi: SoccaShop
 - [Tugas 2](../../wiki/Tugas-2-PBP-2025-2026)
 - [Tugas 3](../../wiki/TUgas-3-PBP-2025-2026)
 - [Tugas 4](../../wiki/Tugas-4-PBP-2025-2026)
+- [Tugas 5](../../wiki/Tugas-5-PBP-2025-2026)
 
 ## Tugas 5
 
-### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+### 1. Apa perbedaan antara synchronous request dan asynchronous request?
 
-Urutannya:
+**Synchronous Request:**
 
-- Inline style (langsung di elemen HTML) paling tinggi.
-- Internal Style Sheet atau External.
-- Browser default.
+- Eksekusi kode berjalan secara berurutan (sequential)
+- Browser menunggu response dari server sebelum melanjutkan eksekusi kode berikutnya
+- Halaman web akan "freeze" atau tidak responsif selama menunggu response
+- User tidak bisa melakukan interaksi lain sampai request selesai
+- Contoh: Form submission biasa yang menyebabkan page reload
 
-### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+**Asynchronous Request:**
 
-Responsive design bikin tampilan web tetap nyaman di berbagai ukuran layar (HP, tablet, laptop). Kalau nggak responsive, web bisa kelihatan berantakan di HP—tombol kepotong, teks susah dibaca.
+- Eksekusi kode tidak menunggu response dari server
+- Browser dapat melanjutkan eksekusi kode lain sambil menunggu response
+- Halaman web tetap responsif dan user bisa melakukan interaksi lain
+- Response ditangani melalui callback, promise, atau async/await
+- Contoh: AJAX request, fetch API
 
-Contoh aplikasi yang sudah responsive: Instagram, Tokopedia (tampilan tetap rapi di HP). Contoh yang belum: Website jadul yang kalau dibuka di HP harus di-zoom dan geser-geser.
+Synchronous seperti antri di kasir, harus menunggu orang di depan selesai baru bisa dilayani, sedangkan Asynchronous seperti pesan makanan di restoran, kita bisa ngobrol atau main HP sambil menunggu pesanan datang
 
-Kenapa penting? Karena sekarang banyak orang akses web lewat HP, jadi harus ramah di semua device.
+### 2. Bagaimana AJAX bekerja di Django (alur request–response)?
 
-### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal ini
+Berikut adalah alur lengkap AJAX di Django:
 
-- Margin: Jarak di luar border elemen, buat ngatur spasi antar elemen.
-- Border: Garis di sekeliling elemen.
-- Padding: Jarak antara isi elemen dan bordernya.
-  Intinya Margin yang mengatur jarak antara border ke elemen lainnya, sedangkan padding adalah jarak isi content terhadap border
+1. User Interaction (Frontend)
+2. JavaScript Event Trigger
+3. AJAX Request dibuat menggunakan fetch() atau XMLHttpRequest
+4. Request dikirim ke Django URL endpoint
+5. Django URL Router mencocokkan URL dengan view
+6. Django View menerima request
+7. View memproses data (CRUD operations, validasi, etc)
+8. View mengembalikan response dalam format JSON
+9. JavaScript menerima response
+10. Callback/Promise handler memproses response
+11. DOM diupdate secara dinamis (tanpa page reload)
+12. UI menampilkan perubahan ke user
 
-Untuk contoh implementasinya pada file css:
-.card {
-margin: 20px; /_ jarak antar card _/
-border: 2px solid #333; /_ garis di sekeliling card _/
-padding: 10px; /_ jarak isi card ke border _/
-}
+### 3. Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
 
-### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+**Keuntungan AJAX:**
 
-Flexbox (Flexible Box) cocok digunakan saat ingin membuat barisan elemen yang fleksibel, misalnya deretan kartu produk yang otomatis rapi walaupun jumlahnya berubah-ubah. Dengan flexbox, kita bisa dengan mudah mengatur arah (horizontal/vertikal), jarak antar elemen, dan bagaimana elemen-elemen tersebut membesar atau mengecil mengikuti ukuran layar.
+1. **User Experience (UX) Lebih Baik**
 
-Sementara itu, grid layout lebih powerful untuk membuat desain yang kompleks, seperti membagi halaman menjadi beberapa kolom dan baris sekaligus. Grid memungkinkan kita menentukan area tertentu untuk elemen, sehingga cocok untuk layout seperti dashboard atau galeri foto yang butuh struktur lebih teratur. Intinya, flexbox lebih pas untuk tata letak satu dimensi (baris atau kolom), sedangkan grid layout untuk dua dimensi (baris dan kolom sekaligus). Keduanya sangat membantu agar tampilan web tetap rapi dan responsif di berbagai ukuran layar.
+   - Tidak ada page reload yang mengganggu
+   - Interaksi terasa lebih cepat dan smooth
+   - Loading hanya pada bagian yang diperlukan
 
-### Jelaskan cara kamu mengimplementasikan checklist di atas secara step-by-step
+2. **Performance Lebih Efisien**
 
-#### 1. Implementasikan fungsi untuk menghapus dan mengedit product]
+   - Hanya data yang diperlukan yang ditransfer (JSON format)
+   - Bandwidth lebih hemat dibanding full HTML
+   - Server hanya perlu mengirim data, bukan template lengkap
 
-1. Membuat 2 function baru di views.py, yaitu edit_product dan delete_product.
-2. Buat URL untuk edit dan delete
-3. Buat template untuk edit_product
-4. Pada main.html tambahkan tombol edit dan delete ketika user == product.user
+3. **Interaktivitas Tinggi**
 
-#### 2. Kustomisasi desain pada template HTML yangtelah dibuat pada tugas sebelumnya menggunakan CSS atau CSS framework
+   - Real-time updates tanpa mengganggu user
+   - Multiple requests bisa berjalan bersamaan
+   - State aplikasi tetap terjaga (scroll position, form input, dll)
 
-1. Buka Figma dan mulai mendesign WebPagenya seperti apa
-   1.1 Menentukan dulu color palet dan typograph nya
-   1.2 Buat beberapa component seperti Button, Button Hover, Card Product, Card Product Hover, dll
-   1.3 Membuat Logo di Canva dan import ke Figma
-   1.4 Rangkai menjadi home page yang indah
-   ![Desain Figma](./assets/img/Desain%20Figma.png)
-2. Setelah sudah jadi export code ke dalam bentuk CSS + HTML dengan plugins yang sudah disediakan Figma
-3. Ubah menjadi tailwind CSS dengan styling inline
+4. **Separation of Concerns**
+
+   - Backend fokus pada data (API)
+   - Frontend fokus pada presentation
+   - Lebih mudah untuk maintenance dan testing
+
+5. **Mobile-Friendly**
+   - API yang sama bisa digunakan untuk web dan mobile app
+   - Data format JSON mudah diparse di berbagai platform
+
+### 4. Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+
+- Menggunakan HTTPS untuk mencegah man-in-the-middle attack
+- Menggunakan CSRF token saat melakukan request
+- Menambahkan validasi input pada sisi server (bukan hanya di client side saja)
+- Menggunakan response JSON, bukan HTML render
+
+### 5. Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+
+## Implementasi Checklist Tugas 6
+
+## Perubahan pada File
+
+### 1. **forms.py**
+
+**Perubahan:**
+
+- Menambahkan import `strip_tags` dari `django.utils.html`
+- Menambahkan method `clean_name()` untuk sanitize input name
+- Menambahkan method `clean_description()` untuk sanitize input description
+
+### 2. **views.py**
+
+**Perubahan:**
+
+- Menambahkan import `JsonResponse`, `csrf_exempt`, `require_POST`, dan `json`
+- Menambahkan 3 function baru untuk AJAX CRUD:
+  - `add_product_ajax()` - Handle create product via AJAX
+  - `edit_product_ajax()` - Handle update product via AJAX
+  - `delete_product_ajax()` - Handle delete product via AJAX
+- Mengubah `show_json()` untuk return `JsonResponse` dengan safe=False dan support filter
+- Mengubah `show_json_by_id()` untuk return `JsonResponse` dengan safe=False
+- Mengubah `show_main()` untuk tidak pass product_list ke context (akan diload via AJAX)
+- Mengubah `register()` untuk support AJAX request
+- Mengubah `login_user()` untuk support AJAX request dengan header check
+
+### 3. **urls.py**
+
+**Perubahan:**
+
+- Menambahkan 3 URL pattern baru untuk AJAX endpoints:
+  ```python
+  path('add-product-ajax/', views.add_product_ajax, name='add_product_ajax'),
+  path('edit-product-ajax/<uuid:id>/', views.edit_product_ajax, name='edit_product_ajax'),
+  path('delete-product-ajax/<uuid:id>/', views.delete_product_ajax, name='delete_product_ajax'),
+  ```
+
+### 4. **base.html**
+
+**Perubahan:**
+
+- Menambahkan DOMPurify CDN script
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+  ```
+- Menambahkan toast.js script
+  ```html
+  <script src="{% static 'js/toast.js' %}"></script>
+  ```
+- Menambahkan include untuk toast.html
+  ```html
+  {% include 'toast.html' %}
+  ```
+
+### 5. **toast.js (File Baru)**
+
+**Lokasi:** `static/js/toast.js`
+
+**Fitur:**
+
+- Function `showToast(title, message, type, duration)`
+- Support 4 types: success, error, warning, normal
+
+### 6. **toast.html (File Baru)**
+
+**Lokasi:** `templates/toast.html`
+
+### 7. **main.html**
+
+**Perubahan:**
+
+1. Filter Section Diubah dari Link ke Button:
+2. Menambahkan Refresh Button
+3. Menambahkan Add Product Button (buka modal, bukan redirect)
+4. Menambahkan 3 States:
+
+   - Loading State (spinner animation)
+   - Empty State (no products message)
+   - Error State (error message dengan retry button)
+
+5. Product List Container
+6. Menambahkan Modal untuk Add/Edit Product:
+
+   - Form dengan semua field product
+   - Validation
+   - Cancel dan Save button
+
+7. Menambahkan Delete Confirmation Modal
+
+   - Warning message
+   - Cancel dan Delete button
+
+8. **JavaScript Functions:**
+
+   ```javascript
+   - filterProducts(filter) - Filter all/my products
+   - refreshProducts() - Fetch dan display products
+   - displayProducts(products) - Render products ke DOM
+   - createProductCard(product) - Generate HTML untuk card
+   - showAddModal() - Open modal untuk create
+   - showEditModal(productId) - Open modal untuk edit
+   - closeModal() - Close product modal
+   - showDeleteModal(productId) - Open delete confirmation
+   - confirmDelete() - Execute delete via AJAX
+   ```
+
+### 8. **login.html**
+
+**Perubahan:**
+
+- Menghapus form errors display (sudah tidak perlu)
+- Menambahkan AJAX form submission
+
+### 9. **register.html**
+
+**Perubahan:**
+
+- Menambahkan error message placeholders untuk setiap field
+- Menambahkan AJAX form submission
+
+### 10. **navbar.html**
+
+**Perubahan:**
+
+1. Desktop Logout → AJAX
+2. Mobile Logout → AJAX
+3. Menambahkan handleLogout() Function
