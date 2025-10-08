@@ -8,7 +8,7 @@ Nama Aplikasi: SoccaShop
 - [Tugas 4](../../wiki/Tugas-4-PBP-2025-2026)
 - [Tugas 5](../../wiki/Tugas-5-PBP-2025-2026)
 
-## Tugas 5
+## Tugas 6
 
 ### 1. Apa perbedaan antara synchronous request dan asynchronous request?
 
